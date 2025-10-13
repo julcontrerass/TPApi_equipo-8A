@@ -1,6 +1,0 @@
-C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\dominio\bin\Debug\dominio.dll
-C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\dominio\bin\Debug\dominio.pdb
-C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\dominio\obj\Debug\dominio.csproj.AssemblyReference.cache
-C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\dominio\obj\Debug\dominio.csproj.CoreCompileInputs.cache
-C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\dominio\obj\Debug\dominio.dll
-C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\dominio\obj\Debug\dominio.pdb
