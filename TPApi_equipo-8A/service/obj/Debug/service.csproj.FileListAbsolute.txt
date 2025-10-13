@@ -1,0 +1,9 @@
+C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\service\bin\Debug\service.dll
+C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\service\bin\Debug\service.pdb
+C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\service\bin\Debug\dominio.dll
+C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\service\bin\Debug\dominio.pdb
+C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\service\obj\Debug\service.csproj.AssemblyReference.cache
+C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\service\obj\Debug\service.csproj.CoreCompileInputs.cache
+C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\service\obj\Debug\service.csproj.Up2Date
+C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\service\obj\Debug\service.dll
+C:\Users\Xxjul\OneDrive\Escritorio\TPApi_equipo-8A\service\obj\Debug\service.pdb
