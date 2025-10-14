@@ -28,18 +28,26 @@ namespace Api_Productos.Controllers
         }
 
         // POST: api/Producto
-        public void Post([FromBody]ArticuloDto art)
+        public HttpResponseMessage Post([FromBody]ArticuloDto art)
         {
-            ArticuloService articuloService = new ArticuloService();
-            Articulo nuevo = new Articulo();
-            nuevo.codigoArticulo = art.codigoArticulo;
-            nuevo.nombre = art.nombre;
-            nuevo.descripcion = art.descripcion;
-            nuevo.idMarca = art.idMarca;
-            nuevo.idCategoria = art.idCategoria;
-            nuevo.precio = art.precio;
-            //nuevo.Imagen = new Imagen();
-            articuloService.agregar(nuevo);
+            try
+            {
+                ArticuloService articuloService = new ArticuloService();
+                Articulo nuevo = new Articulo();
+                nuevo.codigoArticulo = art.codigoArticulo;
+                nuevo.nombre = art.nombre;
+                nuevo.descripcion = art.descripcion;
+                nuevo.idMarca = art.idMarca;
+                nuevo.idCategoria = art.idCategoria;
+                nuevo.precio = art.precio;
+                articuloService.agregar(nuevo);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Artículo agregado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Ocurrió un error al agregar el artículo.");
+            }
         }
 
         // PUT: api/Producto/5
@@ -48,8 +56,19 @@ namespace Api_Productos.Controllers
         }
 
         // DELETE: api/Producto/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
+            try
+            {
+                ArticuloService articuloService = new ArticuloService();
+                articuloService.eliminar(id);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Artículo eliminado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Ocurrió un error al eliminar el artículo.");
+            }
         }
     }
 }
