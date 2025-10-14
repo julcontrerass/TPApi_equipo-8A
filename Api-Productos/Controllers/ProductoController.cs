@@ -19,9 +19,11 @@ namespace Api_Productos.Controllers
         }
 
         // GET: api/Producto/5
-        public string Get(int id)
+        public Articulo Get(int id)
         {
-            return "value";
+            ArticuloService articuloService = new ArticuloService();
+            List<Articulo> lista = articuloService.Listar();
+            return lista.Find(x => x.id == id);
         }
 
         // POST: api/Producto
