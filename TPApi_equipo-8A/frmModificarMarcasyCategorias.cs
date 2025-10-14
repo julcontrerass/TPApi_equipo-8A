@@ -94,6 +94,12 @@ namespace TPApi_equipo_8A
                     {
                         try
                         {
+                            if (cbSeleccion.SelectedItem == null || cbSeleccion.SelectedIndex < 0)
+                            {
+                                MessageBox.Show("Por favor, seleccione una categoría para eliminar.", "Selección requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+
                             Categoria categoria = (Categoria)cbSeleccion.SelectedItem;
                             CategoriaService categoriaService = new CategoriaService();
                             categoriaService.eliminar(categoria.id);
@@ -102,15 +108,28 @@ namespace TPApi_equipo_8A
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show("Error al eliminar la categoría: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else if (rbuttonModificar.Checked)
                     {
                         try
                         {
+                            if (cbSeleccion.SelectedItem == null || cbSeleccion.SelectedIndex < 0)
+                            {
+                                MessageBox.Show("Por favor, seleccione una categoría para modificar.", "Selección requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                            {
+                                MessageBox.Show("Por favor, ingrese el nombre de la categoría.", "Campo requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                txtNombre.Focus();
+                                return;
+                            }
+
                             Categoria categoria = (Categoria)cbSeleccion.SelectedItem;
-                            categoria.descripcion = txtNombre.Text;
+                            categoria.descripcion = txtNombre.Text.Trim();
                             CategoriaService categoriaService = new CategoriaService();
                             categoriaService.modificar(categoria);
                             MessageBox.Show("Categoría modificada con exito");
@@ -118,15 +137,22 @@ namespace TPApi_equipo_8A
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show("Error al modificar la categoría: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else if (rbCrear.Checked)
                     {
                         try
                         {
+                            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                            {
+                                MessageBox.Show("Por favor, ingrese el nombre de la categoría.", "Campo requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                txtNombre.Focus();
+                                return;
+                            }
+
                             Categoria categoria = new Categoria();
-                            categoria.descripcion = txtNombre.Text;
+                            categoria.descripcion = txtNombre.Text.Trim();
                             CategoriaService categoriaService = new CategoriaService();
                             categoriaService.crear(categoria);
                             MessageBox.Show("Categoría creada con exito");
@@ -134,12 +160,12 @@ namespace TPApi_equipo_8A
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show("Error al crear la categoría: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Seleccione una opción");
+                        MessageBox.Show("Por favor, seleccione una opción (Crear, Modificar o Eliminar).", "Opción requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
 
@@ -152,6 +178,12 @@ namespace TPApi_equipo_8A
                     {
                         try
                         {
+                            if (cbSeleccion.SelectedItem == null || cbSeleccion.SelectedIndex < 0)
+                            {
+                                MessageBox.Show("Por favor, seleccione una marca para eliminar.", "Selección requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+
                             Marca marca = (Marca)cbSeleccion.SelectedItem;
                             MarcaService marcaService = new MarcaService();
                             marcaService.eliminar(marca.id);
@@ -160,15 +192,28 @@ namespace TPApi_equipo_8A
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show("Error al eliminar la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else if (rbuttonModificar.Checked)
                     {
                         try
                         {
+                            if (cbSeleccion.SelectedItem == null || cbSeleccion.SelectedIndex < 0)
+                            {
+                                MessageBox.Show("Por favor, seleccione una marca para modificar.", "Selección requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                            {
+                                MessageBox.Show("Por favor, ingrese el nombre de la marca.", "Campo requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                txtNombre.Focus();
+                                return;
+                            }
+
                             Marca marca = (Marca)cbSeleccion.SelectedItem;
-                            marca.descripcion = txtNombre.Text;
+                            marca.descripcion = txtNombre.Text.Trim();
                             MarcaService marcaService = new MarcaService();
                             marcaService.modificar(marca);
                             MessageBox.Show("Marca modificada con exito");
@@ -176,15 +221,22 @@ namespace TPApi_equipo_8A
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show("Error al modificar la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else if (rbCrear.Checked)
                     {
                         try
                         {
+                            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                            {
+                                MessageBox.Show("Por favor, ingrese el nombre de la marca.", "Campo requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                txtNombre.Focus();
+                                return;
+                            }
+
                             Marca marca = new Marca();
-                            marca.descripcion = txtNombre.Text;
+                            marca.descripcion = txtNombre.Text.Trim();
                             MarcaService marcaService = new MarcaService();
                             marcaService.crear(marca);
                             MessageBox.Show("Marca creada con exito");
@@ -192,22 +244,22 @@ namespace TPApi_equipo_8A
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show("Error al crear la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Seleccione una opción");
+                        MessageBox.Show("Por favor, seleccione una opción (Crear, Modificar o Eliminar).", "Opción requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
                 }
-               
+
 
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

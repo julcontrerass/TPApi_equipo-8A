@@ -26,9 +26,9 @@ namespace service
                 }
                 return lista;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception("Error al cargar la lista de categorías: " + ex.Message);
             }
             finally
             {
@@ -41,13 +41,31 @@ namespace service
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("delete from MARCAS where Id = @Id");
+                // Verificar si hay artículos asociados a esta categoría
+                datos.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE IdCategoria = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarLectura();
+
+                int cantidadArticulos = 0;
+                if (datos.Lector.Read())
+                {
+                    cantidadArticulos = (int)datos.Lector[0];
+                }
+                datos.cerrarConexion();
+
+                if (cantidadArticulos > 0)
+                {
+                    throw new Exception("No se puede eliminar la categoría porque tiene " + cantidadArticulos + " artículo(s) asociado(s). Por favor, elimine o modifique los artículos primero.");
+                }
+
+                // Si no hay artículos asociados, proceder con la eliminación
+                datos.setearConsulta("delete from CATEGORIAS where Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception(ex.Message);
             }
             finally
             {
@@ -66,7 +84,7 @@ namespace service
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al modificar la categoría: " + ex.Message);
             }
             finally
             {
@@ -84,7 +102,7 @@ namespace service
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al agregar la categoría: " + ex.Message);
             }
             finally
             {
@@ -103,7 +121,7 @@ namespace service
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    throw new Exception("Error al crear la categoría: " + ex.Message);
                 }
                 finally
                 {

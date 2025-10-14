@@ -73,7 +73,7 @@ namespace service
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al cargar la lista de artículos: " + ex.Message);
             }
             finally
             {
@@ -114,12 +114,20 @@ namespace service
                             datosImg.setearParametro("@ImagenUrl", img.URL.Trim());
                             datosImg.ejecutarAccion();
                         }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error al guardar las imágenes del artículo: " + ex.Message);
+                        }
                         finally
                         {
                             datosImg.cerrarConexion();
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al agregar el artículo: " + ex.Message);
             }
             finally
             {
@@ -144,7 +152,7 @@ namespace service
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al eliminar el artículo: " + ex.Message);
             }
             finally
             {
@@ -192,7 +200,7 @@ namespace service
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al modificar el artículo: " + ex.Message);
             }
             finally
             {
@@ -290,7 +298,7 @@ namespace service
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    throw new Exception("Error al filtrar artículos: " + ex.Message);
                 }
                 finally
                 {
