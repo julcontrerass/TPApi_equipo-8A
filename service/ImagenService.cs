@@ -64,6 +64,7 @@ namespace service
             datos.abrirConexion();
             SqlTransaction transaccion = datos.iniciarTransaccion();
 
+
             try
             {
                 foreach (var img in imagenes)
