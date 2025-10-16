@@ -21,6 +21,7 @@ namespace service
         public AccesoDatos()
         {
             conexion = new SqlConnection("server=.\\SQLEXPRESS; database= CATALOGO_P3_DB; integrated security = true");
+            //conexion = new SqlConnection("server=192.168.1.17,1433; database=CATALOGO_P3_DB;User Id=SA;Password=m^@DfCT8&Y");
             comando = new SqlCommand();
         }
 
@@ -63,6 +64,34 @@ namespace service
             }
         }
 
+
+        public void abrirConexion()
+        {
+            try
+            {
+                conexion.Open();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public void ejecutarAccionMismaTransaccion()
+        {
+            comando.Connection = conexion;
+            try
+            {
+              comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public void cerrarConexion()
         {
             if(lector != null)
@@ -86,11 +115,32 @@ namespace service
                 throw ex;
             }
         }
+
+        public object ejecutarScalarMismaTransaccion()
+        {
+            comando.Connection = conexion;
+            try
+            {           
+                return comando.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void limpiarParametros()
         {
             comando.Parameters.Clear();
         }
 
+        public SqlTransaction iniciarTransaccion()
+        {
 
+            SqlTransaction transaccion = conexion.BeginTransaction();
+            comando.Connection = conexion;
+            comando.Transaction = transaccion;
+            return transaccion;            
+        }
     }
 }

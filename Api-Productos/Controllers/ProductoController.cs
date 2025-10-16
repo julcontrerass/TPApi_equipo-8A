@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Api_Productos.Models;
+using dominio;
+using service;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.ConstrainedExecution;
 using System.Web.Http;
-using dominio;
-using service;
-using Api_Productos.Models;
+using System.Web.UI.WebControls.WebParts;
 
 namespace Api_Productos.Controllers
 {
@@ -51,6 +54,8 @@ namespace Api_Productos.Controllers
         }
 
         // PUT: api/Producto/5
+        //Agregar imágenes a un Producto.La función de agregar imágenes será aparte del alta de productos.
+        //Este mensaje debe recibir un id de producto y una lista de imágenes para ser agregadas.
         public void Put(int id, [FromBody]string value)
         {
         }
