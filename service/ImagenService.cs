@@ -1,14 +1,17 @@
-﻿using System;
+﻿using dominio;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using dominio;
 
 namespace service
 {
-    internal class ImagenService
+    public class ImagenService
     {
+
+        public ImagenService() { }
         public List<Imagen> Listar()
         {
             List<Imagen> lista = new List<Imagen>();
@@ -53,8 +56,49 @@ namespace service
                 datos.cerrarConexion();
             }
         }
+
+        public void agregarImagenes(List<Imagen> imagenes)
+        {
+
+            var datos = new AccesoDatos();
+            datos.abrirConexion();
+            SqlTransaction transaccion = datos.iniciarTransaccion();
+
+            try
+            {
+                foreach (var img in imagenes)
+                {
+
+
+                    datos.limpiarParametros();
+                    datos.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Id = @IdArticulo");
+                    datos.setearParametro("@IdArticulo", img.IdArticulo);
+                    int productoExiste = (int)datos.ejecutarScalarMismaTransaccion();
+
+                    if (productoExiste == 0)
+                        throw new Exception($"El artículo con ID {img.IdArticulo} no existe.");
+
+
+                    datos.limpiarParametros();
+                    datos.setearConsulta(
+                        "INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@IdArticulo, @ImagenUrl)");
+                    datos.setearParametro("@IdArticulo", img.IdArticulo);
+                    datos.setearParametro("@ImagenUrl", img.URL.Trim());
+                    datos.ejecutarAccionMismaTransaccion();
+                }
+
+                transaccion.Commit();
+            }
+            catch (Exception ex)
+            {
+                transaccion.Rollback();
+                throw new Exception("Error al guardar las imágenes del artículo: " + ex.Message);
+
+            }
+           
+
+            datos.cerrarConexion();
+        }
     }
-
-
 
 }
