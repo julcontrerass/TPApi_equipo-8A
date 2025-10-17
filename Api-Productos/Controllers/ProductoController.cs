@@ -54,11 +54,37 @@ namespace Api_Productos.Controllers
         }
 
         // PUT: api/Producto/5
-        //Agregar imágenes a un Producto.La función de agregar imágenes será aparte del alta de productos.
-        //Este mensaje debe recibir un id de producto y una lista de imágenes para ser agregadas.
-        public void Put(int id, [FromBody]string value)
+        
+        public HttpResponseMessage Put([FromBody]ArticuloDto articulo)
         {
+
+           
+            try
+            {
+                if (!(articulo.id is int))
+                {
+                    throw new Exception($"El ID {articulo.id} no es un valor válido.");
+                }
+                ArticuloService articuloService = new ArticuloService();
+                Articulo articuloModificado = new Articulo();
+                articuloModificado.codigoArticulo = (string)articulo.codigoArticulo;
+                articuloModificado.nombre = (string)articulo.nombre;
+                articuloModificado.descripcion = (string)articulo.descripcion;
+                articuloModificado.idMarca = (int)articulo.idMarca;
+                articuloModificado.idCategoria = (int)articulo.idCategoria;
+                articuloModificado.precio =(decimal)articulo.precio;
+                articuloModificado.id = (int)articulo.id;
+                articuloService.modificar(articuloModificado);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Artículo modificado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Ocurrió un error al modificar el artículo. " + ex.Message);
+            }
         }
+
+        
 
         // DELETE: api/Producto/5
         public HttpResponseMessage Delete(int id)

@@ -15,9 +15,7 @@ namespace Api_Productos.Controllers
        
         // POST: api/Imagen
         public HttpResponseMessage Post([FromBody]List<ImagenDto>imagenes)
-        {
-
-            
+        {           
 
             try {
 

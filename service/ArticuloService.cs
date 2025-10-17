@@ -165,6 +165,16 @@ namespace service
             AccesoDatos datos = new AccesoDatos();
             try
             {
+
+                datos.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Id = @IdArticulo");
+                datos.setearParametro("@IdArticulo", articulo.id);
+                int productoExiste = (int)datos.ejecutarScalar();
+                datos.cerrarConexion();
+
+                if (productoExiste == 0)
+                    throw new Exception($"El artículo con ID {articulo.id} no existe.");
+
+
                 datos.setearConsulta("UPDATE ARTICULOS SET Codigo=@codigo, Nombre=@nombre, Descripcion=@descripcion, IdMarca=@idMarca, IdCategoria=@idCategoria, Precio=@precio WHERE Id=@id");
                 datos.setearParametro("@codigo", articulo.codigoArticulo);
                 datos.setearParametro("@nombre", articulo.nombre);
